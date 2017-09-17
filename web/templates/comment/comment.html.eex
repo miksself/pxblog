@@ -13,7 +13,6 @@
         <button class="btn btn-xs btn-primary approve">Approve</button>
           <% end %>
         <button class="btn btn-xs btn-danger delete">Delete</button>
-        <% end %>
       <% end %>
     </div>
   </div>

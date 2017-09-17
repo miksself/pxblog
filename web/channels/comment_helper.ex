@@ -4,7 +4,7 @@ defmodule Pxblog.CommentHelper do
   alias Pxblog.User
   alias Pxblog.Repo
   
-  import Ecto, only: [build_assoc, 2]
+  import Ecto, only: [build_assoc: 2]
 
   def create(%{"postId" => post_id, "body" => body, "author" => author}, _socket) do
     post = get_post(post_id)
@@ -16,11 +16,26 @@ defmodule Pxblog.CommentHelper do
   end
 
   def approve(%{"postId" => post_id, "commentId" => commentId}, %{assigns: %{user: user_id}}) do
-    authorize_and_perform(post_id, user_id, fn -> 
+    authorize_and_perform(post_id, user_id, fn ->
+      comment = Repo.get!(Comment, commentId)
+      changeset = Comment.changeset(comment, %{approved: true})
+      Repo.update(changeset)
+    end)
+  end
+
+  def approve(_params, %{}), do: {:error, "User is not authorized"}
+  def approve(_params, nil), do: {:error, "User is not authorized"}
+
+  def delete(%{"postId" => post_id, "commentId" => comment_id}, %{assigns: %{user: user_id}}) do
+    authorize_and_perform(post_id, user_id, fn ->
       comment = Repo.get!(Comment, comment_id)
       Repo.delete(comment)
     end)
   end
+
+  def delete(_params, %{}), do: {:error, "User is not authorized"}
+  def delete(_params, nil), do: {:error, "User is not authorized"}
+
 
   defp authorize_and_perform(post_id, user_id, action) do
     post = get_post(post_id)
