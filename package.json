@@ -13,7 +13,10 @@
     "babel-brunch": "6.0.6",
     "brunch": "2.10.7",
     "clean-css-brunch": "2.10.0",
-    "jquery": "^3.2.1",
+    "foundation-sites": "^6.4.3",
+    "jquery": "^2.2.4",
+    "motion-ui": "^1.2.3",
+    "sass-brunch": "^2.10.4",
     "uglify-js-brunch": "2.1.1"
   }
 }
