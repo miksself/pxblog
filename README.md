@@ -1,3 +1,6 @@
+Material for this course: https://medium.com/elixir-magic/tagged/elixir
+Original: https://github.com/Diamond/pxblog
+
 # Pxblog
 
 To start your Phoenix app:
